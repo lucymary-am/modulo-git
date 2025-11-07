@@ -65,8 +65,19 @@ def gerar_relatorio_final(funcoes_concluidas):
     ->
     "Desafio concluído! 2 funções implementadas com sucesso."
     """
-    pass
+    if not isinstance(funcoes_concluidas, list):
+        return "Erro: o parâmetro deve ser uma lista."
 
+    total = len(funcoes_concluidas)
+
+    if total == 0:
+        return "Nenhuma função implementada ainda. Continue praticando!"
+    elif total == 1:
+        return "Desafio em andamento! 1 função implementada com sucesso."
+    else:
+        return f"Desafio concluído! {total} funções implementadas com sucesso."
+
+#Inicio   
 print(mostrar_mensagem_inicial(), "\n")
 
 comandos = listar_comandos_git_basicos()
@@ -81,4 +92,14 @@ print(verificar_tag_valida("v1.0"))   # ✅ True
 print(verificar_tag_valida("v2.3"))   # ✅ True
 print(verificar_tag_valida("1.0"))    # ❌ False (não começa com v)
 print(verificar_tag_valida("v2"))     # ❌ False (não tem ponto)
-print(verificar_tag_valida("v2.a"))   # ❌ False (parte não numérica)
+print(verificar_tag_valida("v2.a"), "\n")   # ❌ False (parte não numérica)
+
+print(gerar_relatorio_final([]))
+# ➜ "Nenhuma função implementada ainda. Continue praticando!"
+
+print(gerar_relatorio_final(["mostrar_mensagem_inicial"]))
+# ➜ "Desafio em andamento! 1 função implementada com sucesso."
+
+print(gerar_relatorio_final(["mostrar_mensagem_inicial", "listar_comandos_git_basicos", "criar_mensagem_commit"]))
+# ➜ "Desafio concluído! 3 funções implementadas com sucesso."
+
