@@ -45,8 +45,15 @@ def verificar_tag_valida(tag):
     Verifica se uma tag está no formato 'vX.Y' (ex: v1.0, v2.1).
     Retorna True se o formato for válido, caso contrário False.
     """
-    pass
+    # Verifica se começa com 'v' e o restante segue o padrão numérico
+    if not isinstance(tag, str):
+        return False
 
+    if tag.startswith("v"):
+        partes = tag[1:].split(".")  # remove o 'v' e separa em duas partes
+        if len(partes) == 2 and all(p.isdigit() for p in partes):
+            return True
+    return False
 
 def gerar_relatorio_final(funcoes_concluidas):
     """
@@ -68,3 +75,10 @@ for cmd in comandos:
     print("-", cmd), 
 
 print("\n", criar_mensagem_commit("listar_comandos_git_basicos"), "\n")
+
+print("Verifiaca Tag Válida")
+print(verificar_tag_valida("v1.0"))   # ✅ True
+print(verificar_tag_valida("v2.3"))   # ✅ True
+print(verificar_tag_valida("1.0"))    # ❌ False (não começa com v)
+print(verificar_tag_valida("v2"))     # ❌ False (não tem ponto)
+print(verificar_tag_valida("v2.a"))   # ❌ False (parte não numérica)
